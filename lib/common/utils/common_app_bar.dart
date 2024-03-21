@@ -9,6 +9,9 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backBtn,
     this.actions,
     this.centerTitle,
+    required this.backgroundColor,
+    required this.iconColor,
+    required this.fontColor,
   });
 
   final String title;
@@ -21,11 +24,17 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   final bool? centerTitle;
 
+  final Color backgroundColor;
+
+  final Color iconColor;
+
+  final Color fontColor;
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: centerTitle,
-      backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       toolbarHeight: Sizes.size48,
       automaticallyImplyLeading: isLeading,
       titleSpacing: isLeading ? 0 : Sizes.size16,
@@ -36,16 +45,16 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               onTap: () {
                 backBtn != null ? backBtn!.call() : Navigator.pop(context);
               },
-              child: const Icon(
+              child: Icon(
                 Icons.arrow_back_ios_new,
-                color: Colors.black,
+                color: iconColor,
               ),
             )
           : null,
       title: Text(
         title,
-        style: const TextStyle(
-          color: Colors.black,
+        style: TextStyle(
+          color: fontColor,
           fontSize: Sizes.size20,
           fontWeight: FontWeight.bold,
         ),

@@ -48,6 +48,9 @@ class _InfoScreenState extends State<InfoScreen> {
       appBar: CommonAppBar(
         title: '프로필',
         isLeading: false,
+        backgroundColor: Theme.of(context).primaryColor,
+        fontColor: Colors.white,
+        iconColor: Colors.white,
         actions: [
           TextButton(
             onPressed: () async {
@@ -62,9 +65,9 @@ class _InfoScreenState extends State<InfoScreen> {
                 LoginScreen.routeName,
               );
             },
-            child: CommonText(
+            child: const CommonText(
               textContent: '로그아웃',
-              textColor: Colors.grey.shade500,
+              textColor: Colors.black45,
               textSize: Sizes.size20,
               textWeight: FontWeight.bold,
             ),
@@ -80,14 +83,16 @@ class _InfoScreenState extends State<InfoScreen> {
             return const Center(
               child: CircularProgressIndicator.adaptive(),
             );
-          } else if (snapshot.hasError) {
+          }
+
+          if (snapshot.hasError) {
             return Center(
               child: Text(
                 snapshot.error.toString(),
                 style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: Sizes.size16,
-                    fontWeight: FontWeight.w600),
+                  color: Colors.black,
+                  fontSize: Sizes.size14,
+                ),
               ),
             );
           }
@@ -128,15 +133,15 @@ class _InfoScreenState extends State<InfoScreen> {
                   borderRadius: BorderRadius.circular(360),
                   child: model.profileUrl != null
                       ? Image.network(
-                    model.profileUrl.toString(),
-                    width: Sizes.size52,
-                    height: Sizes.size52,
-                    fit: BoxFit.cover,
-                  )
+                          model.profileUrl.toString(),
+                          width: Sizes.size52,
+                          height: Sizes.size52,
+                          fit: BoxFit.cover,
+                        )
                       : const FaIcon(
-                    FontAwesomeIcons.user,
-                    size: Sizes.size52,
-                  ),
+                          FontAwesomeIcons.user,
+                          size: Sizes.size52,
+                        ),
                 ),
                 Gaps.h20,
 

@@ -121,6 +121,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: const CommonAppBar(
         title: '푸드피커 가입하기',
         isLeading: true,
+        backgroundColor: Colors.white,
+        iconColor: Colors.black,
+        fontColor: Colors.black,
       ),
       body: GestureDetector(
         onTap: () {
