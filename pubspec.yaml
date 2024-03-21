@@ -1,0 +1,38 @@
+name: newbee_talk
+description: "리얼타임 채팅기능 연습..."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  cupertino_icons: ^1.0.6
+  fluttertoast: ^8.2.4
+  supabase_flutter: ^2.3.4
+  image_picker: ^1.0.7
+  intl: ^0.19.0
+  font_awesome_flutter: ^10.7.0
+  http: ^1.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+
+
+flutter:
+
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
