@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
-import 'package:newbee_talk/features/main/views/main_screen.dart';
+import 'package:newbee_talk/features/auth/views/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 3), () async {
       await Navigator.pushReplacementNamed(
         context,
-        MainScreen.routeName,
+        LoginScreen.routeName,
       );
     });
   }

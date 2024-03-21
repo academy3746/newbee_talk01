@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:newbee_talk/features/auth/views/login_screen.dart';
+import 'package:newbee_talk/features/auth/views/sign_up_screen.dart';
 import 'package:newbee_talk/features/main/views/main_screen.dart';
 import 'package:newbee_talk/features/splash/splash_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -49,6 +51,8 @@ class TalkApp extends StatelessWidget {
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(),
         MainScreen.routeName: (context) => const MainScreen(),
+        LoginScreen.routeName: (context) => const LoginScreen(),
+        SignUpScreen.routeName: (context) => const SignUpScreen(),
       },
     );
   }
