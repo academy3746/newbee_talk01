@@ -19,8 +19,6 @@ Future<void> main() async {
     anonKey: supabaseApiKey,
   );
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -42,7 +40,7 @@ class TalkApp extends StatelessWidget {
     return MaterialApp(
       title: 'Talk App',
       theme: ThemeData(
-        primaryColor: const Color(0xFF80CBC4),
+        primaryColor: const Color(0xFFFDD835),
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
