@@ -7,6 +7,8 @@ class CommonText extends StatelessWidget {
     this.textSize,
     this.textColor,
     this.textWeight,
+    this.maxLines,
+    this.overflow,
   });
 
   final String textContent;
@@ -17,9 +19,15 @@ class CommonText extends StatelessWidget {
 
   final FontWeight? textWeight;
 
+  final int? maxLines;
+
+  final TextOverflow? overflow;
+
   @override
   Widget build(BuildContext context) {
     return Text(
+      maxLines: maxLines,
+      overflow: overflow,
       textContent,
       style: TextStyle(
         color: textColor,
