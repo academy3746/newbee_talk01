@@ -4,15 +4,17 @@ import 'package:newbee_talk/features/auth/views/login_screen.dart';
 import 'package:newbee_talk/features/auth/views/sign_up_screen.dart';
 import 'package:newbee_talk/features/main/views/main_screen.dart';
 import 'package:newbee_talk/features/splash/splash_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  const String supabaseUrl = 'https://bvfrgnkyxgtdfrgxmrol.supabase.co';
+  await dotenv.load(fileName: '.env');
 
-  const String supabaseApiKey =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ2ZnJnbmt5eGd0ZGZyZ3htcm9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDkzNjg0NzMsImV4cCI6MjAyNDk0NDQ3M30.SYPWJrTJDDquFfZCdS8X4L0iN-q3fsKB_vdWBEIPvyo';
+  var supabaseUrl = dotenv.get('SUPABASE_URL');
+
+  var supabaseApiKey = dotenv.get('SUPABASE_API_KEY');
 
   await Supabase.initialize(
     url: supabaseUrl,
