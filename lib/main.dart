@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:newbee_talk/common/utils/get_put.dart';
 import 'package:newbee_talk/features/splash/splash_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newbee_talk/get_router.dart';
@@ -44,6 +45,7 @@ class TalkApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: SplashScreen.routeName,
       getPages: GetRouter.pagesList,
+      initialBinding: BindingsBuilder(GetController.put),
     );
   }
 }

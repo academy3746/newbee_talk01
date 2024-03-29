@@ -41,7 +41,7 @@ class GetRouter {
   factory GetRouter.signUp() => GetRouter(SignUpScreen.routeName);
 
   /// Navigate to PushNamed
-  void to({required dynamic args}) {
+  void to({dynamic args}) {
     Get.toNamed(
       page,
       arguments: args,
@@ -49,7 +49,7 @@ class GetRouter {
   }
 
   /// Pop & PushNamed
-  void off({required dynamic args}) {
+  void off({dynamic args}) {
     Get.offNamed(
       page,
       arguments: args,
@@ -57,7 +57,7 @@ class GetRouter {
   }
 
   /// Replace & PushNamed
-  void offAll({required dynamic args}) {
+  void offAll({dynamic args}) {
     Get.offAllNamed(
       page,
       arguments: args,

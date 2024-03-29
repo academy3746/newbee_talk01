@@ -1,48 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
-import 'package:newbee_talk/features/auth/views/login_screen.dart';
-import 'package:newbee_talk/features/main/views/main_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   static const String routeName = '/';
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  /// Initialize Supabase
-  final _supabase = Supabase.instance.client;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _navigateProcess();
-  }
-
-  Future<void> _navigateProcess() async {
-    var login = _supabase.auth.currentUser;
-
-    if (login == null) {
-      Future.delayed(const Duration(seconds: 3), () async {
-        await Navigator.pushReplacementNamed(
-          context,
-          LoginScreen.routeName,
-        );
-      });
-    } else {
-      Future.delayed(const Duration(seconds: 3), () async {
-        await Navigator.pushReplacementNamed(
-          context,
-          MainScreen.routeName,
-        );
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
