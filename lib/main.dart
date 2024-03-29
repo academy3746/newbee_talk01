@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk/common/utils/get_put.dart';
-import 'package:newbee_talk/features/splash/splash_screen.dart';
+import 'package:newbee_talk/features/splash/views/splash_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:newbee_talk/get_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
