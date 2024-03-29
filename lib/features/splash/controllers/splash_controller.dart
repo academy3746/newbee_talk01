@@ -16,7 +16,7 @@ class SplashScreenController extends GetxController {
   }
 
   /// 로그인 여부에 따른 Route 분기문 처리
-  Future<void> navigateProcess() async {
+  void navigateProcess() {
     var loginUser = _supabase.auth.currentUser;
 
     if (loginUser == null) {
