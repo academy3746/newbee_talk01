@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:newbee_talk/features/auth/views/login_screen.dart';
-import 'package:newbee_talk/features/auth/views/sign_up_screen.dart';
-import 'package:newbee_talk/features/main/views/main_screen.dart';
+import 'package:get/get.dart';
 import 'package:newbee_talk/features/splash/splash_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:newbee_talk/get_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
@@ -12,13 +11,9 @@ Future<void> main() async {
 
   await dotenv.load(fileName: '.env');
 
-  var supabaseUrl = dotenv.get('SUPABASE_URL');
-
-  var supabaseApiKey = dotenv.get('SUPABASE_API_KEY');
-
   await Supabase.initialize(
-    url: supabaseUrl,
-    anonKey: supabaseApiKey,
+    url: dotenv.get('SUPABASE_URL'),
+    anonKey: dotenv.get('SUPABASE_API_KEY'),
   );
 
   SystemChrome.setSystemUIOverlayStyle(
@@ -39,7 +34,7 @@ class TalkApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Talk App',
       theme: ThemeData(
         primaryColor: const Color(0xFFFDD835),
@@ -48,12 +43,7 @@ class TalkApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: SplashScreen.routeName,
-      routes: {
-        SplashScreen.routeName: (context) => const SplashScreen(),
-        MainScreen.routeName: (context) => const MainScreen(),
-        LoginScreen.routeName: (context) => const LoginScreen(),
-        SignUpScreen.routeName: (context) => const SignUpScreen(),
-      },
+      getPages: GetRouter.pagesList,
     );
   }
 }
