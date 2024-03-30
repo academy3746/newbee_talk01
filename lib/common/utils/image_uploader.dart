@@ -4,14 +4,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
 
 class ImageUploader {
-  final BuildContext context;
+  BuildContext? context;
 
   final File? imgFile;
 
   final void Function(File? file) onImageUploaded;
 
   ImageUploader({
-    required this.context,
     required this.imgFile,
     required this.onImageUploaded,
   });
@@ -48,7 +47,7 @@ class ImageUploader {
   /// 이미지 업로드 관련 BottomSheet Modal Pop Up
   Future<void> showImageUploadBottomSheet() async {
     showModalBottomSheet(
-      context: context,
+      context: context!,
       builder: (context) {
         return Container(
           width: MediaQuery.of(context).size.width,

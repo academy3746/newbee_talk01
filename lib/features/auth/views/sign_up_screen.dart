@@ -54,7 +54,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.initState();
 
     uploader = ImageUploader(
-      context: context,
       imgFile: profileImg,
       onImageUploaded: _onImageUploaded,
     );
