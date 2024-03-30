@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class InputFieldValidator {
-  final BuildContext context;
+  final BuildContext? context;
 
-  InputFieldValidator({required this.context});
+  InputFieldValidator(this.context);
 
   /// 닉네임 검증
   dynamic nameValidation(value) {

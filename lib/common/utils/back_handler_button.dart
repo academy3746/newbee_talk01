@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class BackHandlerButton {
-  BuildContext context;
+  final BuildContext? context;
 
   DateTime? lastPressed;
 
-  BackHandlerButton({required this.context});
+  BackHandlerButton(this.context);
 
   Future<bool> onWillPop() async {
     var now = DateTime.now();

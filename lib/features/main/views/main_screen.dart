@@ -34,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
 
-    backHandlerButton = BackHandlerButton(context: context);
+    backHandlerButton = BackHandlerButton(context);
   }
 
   @override

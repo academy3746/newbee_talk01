@@ -59,7 +59,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       onImageUploaded: _onImageUploaded,
     );
 
-    val = InputFieldValidator(context: context);
+    val = InputFieldValidator(context);
   }
 
   /// ImageUploader 콜백 동작 별도 처리

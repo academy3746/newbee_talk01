@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:newbee_talk/get_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class SplashScreenController extends GetxController {
-  static SplashScreenController get to => Get.find<SplashScreenController>();
+class SplashCont extends GetxController {
+  static SplashCont get to => Get.find<SplashCont>();
 
   /// Supabase Access
   final _supabase = Supabase.instance.client;

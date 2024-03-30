@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppSnackbar {
-  final BuildContext context;
+  final BuildContext? context;
 
   final String msg;
 
   AppSnackbar({
-    required this.context,
+    this.context,
     required this.msg,
   });
 
