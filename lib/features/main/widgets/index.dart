@@ -24,10 +24,12 @@ class IndexScreen extends StatelessWidget {
         iconColor: Colors.white,
         fontColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        child: _buildIndexScreen(),
+      body: Scrollbar(
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          child: _buildIndexScreen(),
+        ),
       ),
     );
   }

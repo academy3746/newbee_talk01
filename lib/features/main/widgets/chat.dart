@@ -7,14 +7,9 @@ import 'package:newbee_talk/common/utils/common_text.dart';
 import 'package:newbee_talk/common/utils/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/chat_message.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
 
-  @override
-  State<ChatScreen> createState() => _ChatScreenState();
-}
-
-class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
