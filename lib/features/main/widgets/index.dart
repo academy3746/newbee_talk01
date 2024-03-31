@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:newbee_talk/common/constants/gaps.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
 import 'package:newbee_talk/common/utils/common_app_bar.dart';
 import 'package:newbee_talk/common/utils/common_text.dart';
 import 'package:newbee_talk/common/utils/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
+import 'package:newbee_talk/features/main/controllers/index_controller.dart';
 
-class IndexScreen extends StatefulWidget {
+class IndexScreen extends StatelessWidget {
   const IndexScreen({super.key});
 
-  @override
-  State<IndexScreen> createState() => _IndexScreenState();
-}
-
-class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,65 +27,77 @@ class _IndexScreenState extends State<IndexScreen> {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
-        child: Container(
-          margin: const EdgeInsets.all(Sizes.size20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Gaps.v10,
-              const CommonText(
-                textContent: '빠르고 쉽게! 원하는 상대와 채팅하세요!',
-                textSize: Sizes.size16,
-                textColor: Colors.black,
-                textWeight: FontWeight.w600,
-              ),
-              Gaps.v20,
-              FutureBuilder(
-                future: SupabaseService().fetchChatProfiles(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    );
-                  }
+        child: _buildIndexScreen(),
+      ),
+    );
+  }
 
-                  if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        snapshot.error.toString(),
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: Sizes.size16,
-                        ),
-                      ),
-                    );
-                  }
+  Widget _buildIndexScreen() {
+    final cont = IndexCont.to;
 
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 15,
-                      crossAxisSpacing: 15,
-                    ),
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      var userModel = snapshot.data![index];
-
-                      return buildProfile(userModel);
-                    },
-                  );
-                },
-              ),
-            ],
+    return Container(
+      margin: const EdgeInsets.all(Sizes.size20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Gaps.v10,
+          const CommonText(
+            textContent: '빠르고 쉽게! 원하는 상대와 채팅하세요!',
+            textSize: Sizes.size16,
+            textColor: Colors.black,
+            textWeight: FontWeight.w600,
           ),
-        ),
+          Gaps.v20,
+          FutureBuilder(
+            future: SupabaseService().fetchChatProfiles(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              }
+
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    snapshot.error.toString(),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: Sizes.size16,
+                    ),
+                  ),
+                );
+              }
+
+              return Obx(
+                () => GridView.builder(
+                  controller: cont.indexController,
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 15,
+                    crossAxisSpacing: 15,
+                  ),
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    var userModel = snapshot.data![index];
+
+                    return _buildProfile(
+                      userModel,
+                      context,
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
 
   /// Chatting User List UI
-  Widget buildProfile(MemberModel userModel) {
+  Widget _buildProfile(MemberModel userModel, BuildContext context) {
     return Container(
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
