@@ -224,7 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                     snackBar.showSnackbar(context);
 
-                    GetRouter.main().offAll();
+                    GetRouter.main().off();
                   }
                 },
               ),

@@ -1,110 +1,76 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:newbee_talk/common/constants/gaps.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
-import 'package:newbee_talk/common/utils/app_snackbar.dart';
 import 'package:newbee_talk/common/utils/common_app_bar.dart';
 import 'package:newbee_talk/common/utils/common_text.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
-import 'package:newbee_talk/features/auth/views/login_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:newbee_talk/features/main/controllers/user_info_controller.dart';
 
-class InfoScreen extends StatefulWidget {
+class InfoScreen extends StatelessWidget {
   const InfoScreen({super.key});
 
   @override
-  State<InfoScreen> createState() => _InfoScreenState();
-}
-
-class _InfoScreenState extends State<InfoScreen> {
-  /// Initialize Supabase
-  final _supabase = Supabase.instance.client;
-
-  /// 접속중인 단일 사용자 정보 호출
-  Future<MemberModel> _getUserInfo() async {
-    final userMap = await _supabase.from('member').select().eq(
-          'uid',
-          _supabase.auth.currentUser!.id,
-        );
-
-    final currentUser = userMap
-        .map(
-          (data) => MemberModel.fromMap(data),
-        )
-        .single;
-
-    return currentUser;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    var snackbar = AppSnackbar(
-      context: context,
-      msg: '로그아웃 되었습니다!',
-    );
-
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CommonAppBar(
-        title: '프로필',
-        isLeading: false,
-        backgroundColor: Theme.of(context).primaryColor,
-        fontColor: Colors.white,
-        iconColor: Colors.white,
-        actions: [
-          TextButton(
-            onPressed: () async {
-              await _supabase.auth.signOut();
-
-              if (!context.mounted) return;
-
-              snackbar.showSnackbar(context);
-
-              Navigator.popAndPushNamed(
-                context,
-                LoginScreen.routeName,
-              );
-            },
-            child: const CommonText(
-              textContent: '로그아웃',
-              textColor: Colors.black45,
-              textSize: Sizes.size20,
-              textWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
-      body: FutureBuilder(
-        future: _getUserInfo(),
-        builder: (context, snapshot) {
-          var userModel = snapshot.data;
-
-          if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
-            );
-          }
-
-          if (snapshot.hasError) {
-            return Center(
-              child: Text(
-                snapshot.error.toString(),
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: Sizes.size14,
+    return GetBuilder(
+      builder: (InfoCont cont) {
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: CommonAppBar(
+            title: '프로필',
+            isLeading: false,
+            backgroundColor: Theme.of(context).primaryColor,
+            fontColor: Colors.white,
+            iconColor: Colors.white,
+            actions: [
+              TextButton(
+                onPressed: () => cont.logOut(),
+                child: const CommonText(
+                  textContent: '로그아웃',
+                  textColor: Colors.black45,
+                  textSize: Sizes.size20,
+                  textWeight: FontWeight.bold,
                 ),
               ),
-            );
-          }
+            ],
+          ),
+          body: FutureBuilder(
+            future: cont.getCurrentUser(),
+            builder: (context, snapshot) {
+              var userModel = snapshot.data;
 
-          return myProfile(userModel!);
-        },
-      ),
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              }
+
+              if (snapshot.hasError) {
+                return Center(
+                  child: Text(
+                    snapshot.error.toString(),
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: Sizes.size14,
+                    ),
+                  ),
+                );
+              }
+
+              return _myProfile(
+                userModel!,
+                context,
+              );
+            },
+          ),
+        );
+      },
     );
   }
 
   /// 회원 정보 위젯
-  Widget myProfile(MemberModel model) {
+  Widget _myProfile(MemberModel model, BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(Sizes.size20),
       child: Column(

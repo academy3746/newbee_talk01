@@ -48,7 +48,7 @@ class GetRouter {
     );
   }
 
-  /// Pop & PushNamed
+  /// Push & ReplacementNamed
   void off({dynamic args}) {
     Get.offNamed(
       page,
@@ -56,7 +56,15 @@ class GetRouter {
     );
   }
 
-  /// Replace & PushNamed
+  /// Pop & PushNamed
+  void offAnd({dynamic args}) {
+    Get.offAndToNamed(
+      page,
+      arguments: args,
+    );
+  }
+
+  /// PushNamed & Remove Until
   void offAll({dynamic args}) {
     Get.offAllNamed(
       page,

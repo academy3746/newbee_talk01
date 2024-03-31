@@ -22,12 +22,12 @@ class SplashCont extends GetxController {
     if (loginUser == null) {
       Future.delayed(
         const Duration(seconds: 3),
-        () => GetRouter.login().offAll(),
+        () => GetRouter.login().off(),
       );
     } else {
       Future.delayed(
         const Duration(seconds: 3),
-        () => GetRouter.main().offAll(),
+        () => GetRouter.main().off(),
       );
     }
   }

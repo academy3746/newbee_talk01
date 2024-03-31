@@ -27,57 +27,61 @@ class _IndexScreenState extends State<IndexScreen> {
         iconColor: Colors.white,
         fontColor: Colors.white,
       ),
-      body: Container(
-        margin: const EdgeInsets.all(Sizes.size20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Gaps.v10,
-            const CommonText(
-              textContent: '빠르고 쉽게! 원하는 상대와 채팅하세요!',
-              textSize: Sizes.size16,
-              textColor: Colors.black,
-              textWeight: FontWeight.w600,
-            ),
-            Gaps.v20,
-            FutureBuilder(
-              future: SupabaseService().fetchChatProfiles(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-                }
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        child: Container(
+          margin: const EdgeInsets.all(Sizes.size20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Gaps.v10,
+              const CommonText(
+                textContent: '빠르고 쉽게! 원하는 상대와 채팅하세요!',
+                textSize: Sizes.size16,
+                textColor: Colors.black,
+                textWeight: FontWeight.w600,
+              ),
+              Gaps.v20,
+              FutureBuilder(
+                future: SupabaseService().fetchChatProfiles(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  }
 
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(
-                      snapshot.error.toString(),
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: Sizes.size16,
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        snapshot.error.toString(),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: Sizes.size16,
+                        ),
                       ),
+                    );
+                  }
+
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 15,
                     ),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      var userModel = snapshot.data![index];
+
+                      return buildProfile(userModel);
+                    },
                   );
-                }
-
-                return GridView.builder(
-                  shrinkWrap: true,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                  ),
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    var userModel = snapshot.data![index];
-
-                    return buildProfile(userModel);
-                  },
-                );
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
