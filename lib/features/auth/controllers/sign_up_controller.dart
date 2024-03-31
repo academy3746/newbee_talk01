@@ -40,12 +40,11 @@ class SignUpCont extends GetxController {
   /// 이미지 파일 업로드
   late ImageUploader uploader;
 
-  @override
-  void onInit() {
-    super.onInit();
-
+  /// Initialize Image Uploader Widget
+  void initImageUploader(BuildContext context) {
     uploader = ImageUploader(
-      imgFile: profileImg,
+      context: context,
+      imgFile: _profileImg.value,
       onImageUploaded: onImageUploaded,
     );
   }
@@ -67,12 +66,12 @@ class SignUpCont extends GetxController {
     if (res.user != null) {
       success = true;
 
-      if (profileImg != null) {
+      if (_profileImg.value != null) {
         var now = DateTime.now();
 
         var path = 'profiles/${res.user!.id}_$now.jpg';
 
-        final uploadImage = profileImg;
+        final uploadImage = _profileImg.value;
 
         final uploadUrl =
             _supabase.storage.from('food_pick').getPublicUrl(path);
@@ -92,7 +91,7 @@ class SignUpCont extends GetxController {
               email: emailController.text,
               introduce: introController.text,
               uid: res.user!.id,
-              profileUrl: imageUrl
+              profileUrl: _imageUrl.value,
             ).toMap(),
           );
     } else {
