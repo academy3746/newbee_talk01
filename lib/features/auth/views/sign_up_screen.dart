@@ -73,9 +73,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             /// Profile IMG
             GestureDetector(
-              onTap: () async {
-                cont.uploader.showImageUploadBottomSheet();
-              },
+              onTap: () => cont.uploader.showImageUploadBottomSheet(),
               child: BuildProfile(profileImg: cont.profileImg),
             ),
             Gaps.v32,
