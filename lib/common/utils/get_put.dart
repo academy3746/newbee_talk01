@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:newbee_talk/features/auth/controllers/login_controller.dart';
 import 'package:newbee_talk/features/auth/controllers/sign_up_controller.dart';
+import 'package:newbee_talk/features/main/controllers/chat_controller.dart';
 import 'package:newbee_talk/features/main/controllers/index_controller.dart';
 import 'package:newbee_talk/features/main/controllers/main_controller.dart';
 import 'package:newbee_talk/features/main/controllers/user_info_controller.dart';
@@ -25,5 +26,8 @@ class GetController {
 
     /// [Main] Index Controller
     Get.put(IndexCont());
+
+    /// [Chat] Chat Controller
+    Get.put(ChatCont());
   }
 }
