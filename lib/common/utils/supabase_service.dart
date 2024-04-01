@@ -63,6 +63,48 @@ class SupabaseService {
     return res;
   }
 
+  /// 대화방 신규 생성 or 진입
+  Future<ChatRoomModel> fetchOrInsertChatRoom(String otherUid) async {
+    final chatRoomMap = await supabase.from('chat_room').select().contains(
+          'members_uid',
+          '{$otherUid, ${getMyUid()}}',
+        );
+
+    /// 대화방 신규 생성
+    if (chatRoomMap.isEmpty) {
+      ChatRoomModel chatRoomModel;
+
+      List<Map<String, dynamic>> chatRoomList = await supabase
+          .from('chat_room')
+          .insert(
+            ChatRoomModel(
+              membersUid: [
+                otherUid,
+                getMyUid(),
+              ],
+            ).toMap(),
+          )
+          .select();
+
+      chatRoomModel = chatRoomList
+          .map(
+            (data) => ChatRoomModel.fromJson(data),
+          )
+          .toList()
+          .single;
+
+      return chatRoomModel;
+    }
+
+    /// 기존 대화방 진입
+    return chatRoomMap
+        .map(
+          (data) => ChatRoomModel.fromJson(data),
+        )
+        .toList()
+        .single;
+  }
+
   /// 로그인 유저 UID 획득
   String getMyUid() {
     return supabase.auth.currentUser!.id;

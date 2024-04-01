@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk/common/utils/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
+import 'package:newbee_talk/get_router.dart';
 
 class IndexCont extends GetxController {
   static IndexCont get to => Get.find<IndexCont>();
@@ -54,6 +55,20 @@ class IndexCont extends GetxController {
     } finally {
       _loading(false);
     }
+  }
+
+  /// Encounter 1:1 Chat Room (onGenerating)
+  Future<void> enterChatRoom(String otherUid, MemberModel userModel) async {
+    var chatRoomModel = await SupabaseService().fetchOrInsertChatRoom(
+      otherUid,
+    );
+
+    GetRouter.chat().to(
+      args: (
+        chatRoomModel,
+        userModel,
+      ),
+    );
   }
 
   ScrollController get indexController => _indexController.value;

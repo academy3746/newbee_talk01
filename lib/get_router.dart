@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk/features/auth/views/login_screen.dart';
 import 'package:newbee_talk/features/auth/views/sign_up_screen.dart';
+import 'package:newbee_talk/features/main/views/chat_screen.dart';
 import 'package:newbee_talk/features/main/views/main_screen.dart';
 import 'package:newbee_talk/features/splash/views/splash_screen.dart';
 
@@ -17,6 +18,7 @@ class GetRouter {
   static Map<String, Widget> get pages => {
         SplashScreen.routeName: const SplashScreen(),
         MainScreen.routeName: const MainScreen(),
+        ChatScreen.routeName: const ChatScreen(),
         LoginScreen.routeName: const LoginScreen(),
         SignUpScreen.routeName: const SignUpScreen(),
       };
@@ -35,6 +37,8 @@ class GetRouter {
   factory GetRouter.splash() => GetRouter(SplashScreen.routeName);
 
   factory GetRouter.main() => GetRouter(MainScreen.routeName);
+
+  factory GetRouter.chat() => GetRouter(ChatScreen.routeName);
 
   factory GetRouter.login() => GetRouter(LoginScreen.routeName);
 

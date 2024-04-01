@@ -84,9 +84,17 @@ class IndexScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var userModel = snapshot.data![index];
 
-                    return _buildProfile(
-                      userModel,
-                      context,
+                    return GestureDetector(
+                      onTap: () {
+                        cont.enterChatRoom(
+                          userModel.uid,
+                          userModel,
+                        );
+                      },
+                      child: _buildProfile(
+                        userModel,
+                        context,
+                      ),
                     );
                   },
                 ),

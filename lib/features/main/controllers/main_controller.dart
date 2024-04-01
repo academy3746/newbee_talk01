@@ -13,7 +13,7 @@ class MainCont extends GetxController {
   /// Index Screen Footer
   final List<Widget> _screens = [
     const IndexScreen(),
-    const ChatScreen(),
+    const ChatListScreen(),
     const InfoScreen(),
   ];
 
