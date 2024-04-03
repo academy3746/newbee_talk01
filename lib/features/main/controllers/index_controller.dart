@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk/common/utils/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
+import 'package:newbee_talk/features/main/controllers/chat_controller.dart';
+import 'package:newbee_talk/features/main/models/chat_room.dart';
 import 'package:newbee_talk/get_router.dart';
 
 class IndexCont extends GetxController {
@@ -16,6 +18,15 @@ class IndexCont extends GetxController {
 
   /// User Data List
   final _data = Rx<List<MemberModel>?>(null);
+
+  /// Getter (_indexController)
+  ScrollController get indexController => _indexController.value;
+
+  /// Getter (_loading)
+  bool get loading => _loading.value;
+
+  /// Getter (_data)
+  List<MemberModel>? get data => _data.value;
 
   @override
   void onInit() {
@@ -59,21 +70,16 @@ class IndexCont extends GetxController {
 
   /// Encounter 1:1 Chat Room (onGenerating)
   Future<void> enterChatRoom(String otherUid, MemberModel userModel) async {
-    var chatRoomModel = await SupabaseService().fetchOrInsertChatRoom(
+    final chatCont = ChatCont.to;
+
+    ChatRoomModel chatRoomModel = await SupabaseService().fetchOrInsertChatRoom(
       otherUid,
     );
 
-    GetRouter.chat().to(
-      args: (
-        chatRoomModel,
-        userModel,
-      ),
-    );
+    chatCont.setChatRoomModel(chatRoomModel);
+
+    chatCont.setMemberModel(userModel);
+
+    GetRouter.chat().to();
   }
-
-  ScrollController get indexController => _indexController.value;
-
-  bool get loading => _loading.value;
-
-  List<MemberModel>? get data => _data.value;
 }

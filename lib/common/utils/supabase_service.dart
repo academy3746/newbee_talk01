@@ -76,20 +76,11 @@ class SupabaseService {
 
       List<Map<String, dynamic>> chatRoomList = await supabase
           .from('chat_room')
-          .insert(
-            ChatRoomModel(
-              membersUid: [
-                otherUid,
-                getMyUid(),
-              ],
-            ).toMap(),
-          )
+          .insert(ChatRoomModel(membersUid: [otherUid, getMyUid()]).toMap())
           .select();
 
       chatRoomModel = chatRoomList
-          .map(
-            (data) => ChatRoomModel.fromJson(data),
-          )
+          .map((data) => ChatRoomModel.fromJson(data))
           .toList()
           .single;
 
@@ -98,9 +89,7 @@ class SupabaseService {
 
     /// 기존 대화방 진입
     return chatRoomMap
-        .map(
-          (data) => ChatRoomModel.fromJson(data),
-        )
+        .map((data) => ChatRoomModel.fromJson(data))
         .toList()
         .single;
   }

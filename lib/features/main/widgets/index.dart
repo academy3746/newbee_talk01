@@ -84,10 +84,12 @@ class IndexScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     var userModel = snapshot.data![index];
 
+                    var otherUid = userModel.uid;
+
                     return GestureDetector(
                       onTap: () {
                         cont.enterChatRoom(
-                          userModel.uid,
+                          otherUid,
                           userModel,
                         );
                       },
