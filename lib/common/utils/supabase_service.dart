@@ -98,4 +98,23 @@ class SupabaseService {
   String getMyUid() {
     return supabase.auth.currentUser!.id;
   }
+
+  /// 대화 메시지 실시간 구독
+  Stream<List<Map<String, dynamic>>> fetchChatMessage(String uid, int idx) {
+    final chatStream = supabase
+        .from('chat_message')
+        .stream(
+          primaryKey: ['idx'],
+        )
+        .eq(
+          'chat_room_id',
+          idx,
+        )
+        .order(
+          'created_at',
+          ascending: true,
+        );
+
+    return chatStream;
+  }
 }

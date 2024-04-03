@@ -76,9 +76,10 @@ class IndexCont extends GetxController {
       otherUid,
     );
 
-    chatCont.setChatRoomModel(chatRoomModel);
-
-    chatCont.setMemberModel(userModel);
+    chatCont.setRecords((
+      chatRoomModel,
+      userModel,
+    ));
 
     GetRouter.chat().to();
   }

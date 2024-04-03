@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:newbee_talk/common/constants/gaps.dart';
+import 'package:newbee_talk/common/constants/sizes.dart';
 import 'package:newbee_talk/common/utils/common_app_bar.dart';
+import 'package:newbee_talk/common/utils/common_text.dart';
+import 'package:newbee_talk/common/utils/supabase_service.dart';
 import 'package:newbee_talk/features/main/controllers/chat_controller.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -15,15 +19,42 @@ class ChatScreen extends StatelessWidget {
     return Obx(
       () => Scaffold(
         appBar: CommonAppBar(
-          title: cont.member!.name,
+          title: cont.records!.$2.name,
           isLeading: true,
           backgroundColor: Theme.of(context).primaryColor,
           iconColor: Colors.white,
           fontColor: Colors.white,
         ),
         backgroundColor: Colors.white,
-        body: Container(),
+        body: Column(
+          children: [
+            Gaps.v16,
+
+            /// DateTime.now()
+            Center(
+              child: CommonText(
+                textContent: cont.datetimeToString(),
+                textSize: Sizes.size16,
+                textColor: const Color(0xFFABA7FF),
+              ),
+            ),
+
+            /// onMessage Realtime
+            StreamBuilder(
+              stream: SupabaseService().fetchChatMessage(
+                cont.records!.$2.uid,
+                cont.records!.$1.idx!,
+              ),
+              builder: (context, snapshot) => _buildMessageBody(),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  /// Build Chatting Message UI
+  Widget _buildMessageBody() {
+    return Container();
   }
 }

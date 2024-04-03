@@ -1,29 +1,30 @@
 import 'package:get/get.dart';
+import 'package:newbee_talk/common/constants/date.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
 import 'package:newbee_talk/features/main/models/chat_room.dart';
 
 class ChatCont extends GetxController {
   static ChatCont get to => Get.find<ChatCont>();
 
-  /// ChatRoom Model Class Instance
-  final _chat = Rx<ChatRoomModel?>(null);
+  /// Instances Model Classes
+  final _records = Rx<(ChatRoomModel, MemberModel)?>(null);
 
-  /// Member Model Class Instance
-  final _member = Rx<MemberModel?>(null);
+  /// Getter (ChatRoomModel, MemberModel)
+  (ChatRoomModel, MemberModel)? get records => _records.value;
 
-  /// Getter (ChatRoomModel)
-  ChatRoomModel? get chat => _chat.value;
-
-  /// Getter (MemberModel)
-  MemberModel? get member => _member.value;
-
-  /// Setter (ChatRoomModel)
-  void setChatRoomModel(ChatRoomModel model) {
-    _chat.value = model;
+  /// Setter (ChatRoomModel, MemberModel)
+  void setRecords((ChatRoomModel, MemberModel) model) {
+    _records.value = model;
   }
 
-  /// Setter (MemberModel)
-  void setMemberModel(MemberModel model) {
-    _member.value = model;
+  /// Parse Datetime
+  String datetimeToString() {
+    var parse = '';
+
+    var now = DateTime.now();
+
+    parse = formatted.format(now);
+
+    return parse;
   }
 }
