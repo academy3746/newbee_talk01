@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:newbee_talk/common/utils/supabase_service.dart';
+import 'package:newbee_talk/dao/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
 import 'package:newbee_talk/features/main/controllers/chat_controller.dart';
 import 'package:newbee_talk/features/main/models/chat_room.dart';

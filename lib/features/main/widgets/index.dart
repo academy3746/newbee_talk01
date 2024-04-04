@@ -5,7 +5,7 @@ import 'package:newbee_talk/common/constants/gaps.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
 import 'package:newbee_talk/common/utils/common_app_bar.dart';
 import 'package:newbee_talk/common/utils/common_text.dart';
-import 'package:newbee_talk/common/utils/supabase_service.dart';
+import 'package:newbee_talk/dao/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
 import 'package:newbee_talk/features/main/controllers/index_controller.dart';
 
