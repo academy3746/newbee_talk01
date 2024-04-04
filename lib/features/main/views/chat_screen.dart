@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:newbee_talk/common/constants/gaps.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
 import 'package:newbee_talk/common/utils/common_app_bar.dart';
 import 'package:newbee_talk/common/utils/common_text.dart';
@@ -23,22 +22,27 @@ class ChatScreen extends StatelessWidget {
         fontColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          Gaps.v16,
-
-          /// DateTime.now()
-          Center(
-            child: CommonText(
-              textContent: cont.datetimeToString(),
-              textSize: Sizes.size16,
-              textColor: const Color(0xFFABA7FF),
+      body: Container(
+        margin: const EdgeInsets.only(
+          left: Sizes.size20,
+          right: Sizes.size20,
+          top: Sizes.size16,
+        ),
+        child: Column(
+          children: [
+            /// DateTime.now()
+            Center(
+              child: CommonText(
+                textContent: cont.datetimeToString(),
+                textSize: Sizes.size16,
+                textColor: const Color(0xFFABA7FF),
+              ),
             ),
-          ),
 
-          /// onMessage Realtime
-          _buildMessageBody(),
-        ],
+            /// onMessage Realtime
+            _buildMessageBody(),
+          ],
+        ),
       ),
     );
   }
