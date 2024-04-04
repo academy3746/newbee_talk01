@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:newbee_talk/common/constants/gaps.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
 import 'package:newbee_talk/common/utils/common_app_bar.dart';
@@ -15,33 +14,31 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cont = ChatCont.to;
 
-    return Obx(
-      () => Scaffold(
-        appBar: CommonAppBar(
-          title: cont.records!.$2.name,
-          isLeading: true,
-          backgroundColor: Theme.of(context).primaryColor,
-          iconColor: Colors.white,
-          fontColor: Colors.white,
-        ),
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            Gaps.v16,
+    return Scaffold(
+      appBar: CommonAppBar(
+        title: cont.records!.$2.name,
+        isLeading: true,
+        backgroundColor: Theme.of(context).primaryColor,
+        iconColor: Colors.white,
+        fontColor: Colors.white,
+      ),
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Gaps.v16,
 
-            /// DateTime.now()
-            Center(
-              child: CommonText(
-                textContent: cont.datetimeToString(),
-                textSize: Sizes.size16,
-                textColor: const Color(0xFFABA7FF),
-              ),
+          /// DateTime.now()
+          Center(
+            child: CommonText(
+              textContent: cont.datetimeToString(),
+              textSize: Sizes.size16,
+              textColor: const Color(0xFFABA7FF),
             ),
+          ),
 
-            /// onMessage Realtime
-            _buildMessageBody(),
-          ],
-        ),
+          /// onMessage Realtime
+          _buildMessageBody(),
+        ],
       ),
     );
   }
