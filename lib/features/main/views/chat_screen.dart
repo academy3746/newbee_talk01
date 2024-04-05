@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:newbee_talk/common/constants/sizes.dart';
 import 'package:newbee_talk/common/utils/common_app_bar.dart';
 import 'package:newbee_talk/common/utils/common_text.dart';
+import 'package:newbee_talk/features/auth/models/chat_message.dart';
 import 'package:newbee_talk/features/main/controllers/chat_controller.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -40,7 +42,21 @@ class ChatScreen extends StatelessWidget {
             ),
 
             /// onMessage Realtime
-            _buildMessageBody(),
+            Obx(
+              () => StreamBuilder(
+                stream: cont.stream(),
+                builder: (context, snapshot) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: cont.msg!.length,
+                    itemBuilder: (context, index) => _buildMessageBody(
+                      cont.msg![index],
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -48,7 +64,20 @@ class ChatScreen extends StatelessWidget {
   }
 
   /// Build Chatting Message UI
-  Widget _buildMessageBody() {
-    return Container();
+  Widget _buildMessageBody(ChatMessageModel model) {
+    return Container(
+      margin: const EdgeInsets.symmetric(
+        vertical: Sizes.size10,
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(360),
+        child: Image.network(
+          model.profileUrl!,
+          width: Sizes.size48,
+          height: Sizes.size48,
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
   }
 }
