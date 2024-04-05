@@ -11,13 +11,13 @@ class ChatCont extends GetxController {
   final _records = Rx<(ChatRoomModel, MemberModel)?>(null);
 
   /// Instances Chat Message Model Class
-  final _msg = Rxn<ChatMessageModel>();
+  final _msg = RxList<ChatMessageModel>();
 
   /// Getter (ChatRoomModel, MemberModel)
   (ChatRoomModel, MemberModel)? get records => _records.value;
 
   /// Getter (_msg)
-  ChatMessageModel? get msg => _msg.value;
+  List<ChatMessageModel>? get msg => _msg;
 
   /// Setter (ChatRoomModel, MemberModel)
   void setRecords((ChatRoomModel, MemberModel) model) {
