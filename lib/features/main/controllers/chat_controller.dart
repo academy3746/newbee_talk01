@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:newbee_talk/common/constants/date.dart';
+import 'package:newbee_talk/dao/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/chat_message.dart';
 import 'package:newbee_talk/features/auth/models/member.dart';
 import 'package:newbee_talk/features/main/models/chat_room.dart';
@@ -22,6 +23,16 @@ class ChatCont extends GetxController {
   /// Setter (ChatRoomModel, MemberModel)
   void setRecords((ChatRoomModel, MemberModel) model) {
     _records.value = model;
+  }
+
+  /// Streaming Realtime Message
+  Stream<List<Map<String, dynamic>>> stream() {
+    var res = SupabaseService().fetchChatMessage(
+      records!.$2.uid,
+      records!.$1.idx!,
+    );
+
+    return res;
   }
 
   /// Parse Datetime
