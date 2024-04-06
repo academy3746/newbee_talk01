@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:newbee_talk/common/constants/date.dart';
 import 'package:newbee_talk/dao/supabase_service.dart';
@@ -10,8 +11,14 @@ class ChatCont extends GetxController {
   /// Instances Model Classes
   final _records = Rx<(ChatRoomModel, MemberModel)?>(null);
 
+  /// Instances View Page TextField Controller
+  final _chatFieldCont = TextEditingController().obs;
+
   /// Getter (ChatRoomModel, MemberModel)
   (ChatRoomModel, MemberModel)? get records => _records.value;
+
+  /// Getter (_chatFieldCont)
+  TextEditingController get chatFieldCont => _chatFieldCont.value;
 
   /// Setter (ChatRoomModel, MemberModel)
   void setRecords((ChatRoomModel, MemberModel) model) {
