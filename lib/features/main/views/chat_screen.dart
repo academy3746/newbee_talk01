@@ -17,6 +17,8 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final cont = ChatCont.to;
 
+    cont.autoScroll();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -80,6 +82,7 @@ class ChatScreen extends StatelessWidget {
                           .toList();
 
                       return ListView.builder(
+                        controller: cont.chatScrollCont,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: model.length,
@@ -118,42 +121,40 @@ class ChatScreen extends StatelessWidget {
       margin: const EdgeInsets.symmetric(
         vertical: Sizes.size10,
       ),
-      child: Expanded(
-        child: Wrap(
-          alignment: WrapAlignment.end,
-          children: [
-            Container(
-              margin: const EdgeInsets.symmetric(
-                vertical: Sizes.size10,
+      child: Wrap(
+        alignment: WrapAlignment.end,
+        children: [
+          Container(
+            margin: const EdgeInsets.symmetric(
+              vertical: Sizes.size10,
+            ),
+            decoration: ShapeDecoration(
+              color: const Color(0xFFFFE57F),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Sizes.size10),
               ),
-              decoration: ShapeDecoration(
-                color: const Color(0xFFFDD835),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(Sizes.size10),
+              shadows: const [
+                BoxShadow(
+                  color: Color(0x3F000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                  spreadRadius: 0,
                 ),
-                shadows: const [
-                  BoxShadow(
-                    color: Color(0x3F000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 4),
-                    spreadRadius: 0,
-                  ),
-                ],
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.size12,
+                horizontal: Sizes.size10,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.size12,
-                  horizontal: Sizes.size10,
-                ),
-                child: CommonText(
-                  textContent: model.message,
-                  textColor: Colors.white,
-                  textSize: Sizes.size12,
-                ),
+              child: CommonText(
+                textContent: model.message,
+                textColor: Colors.black87,
+                textSize: Sizes.size12,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -247,7 +248,6 @@ class ChatScreen extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: cont.chatFieldCont,
-              maxLines: 1,
               maxLength: 200,
               textInputAction: TextInputAction.done,
               style: const TextStyle(color: Colors.black),
@@ -260,10 +260,13 @@ class ChatScreen extends StatelessWidget {
                 counterText: '',
                 counterStyle: const TextStyle(fontSize: 0),
               ),
+              textCapitalization: TextCapitalization.none,
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => cont.sendMessage(
+              cont.chatFieldCont.text,
+            ),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               side: BorderSide.none,

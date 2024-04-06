@@ -117,4 +117,36 @@ class SupabaseService {
 
     return chatStream;
   }
+
+  /// 본인의 회원정보 갱신
+  Future<MemberModel> fetchMyAccount() async {
+    final userMap = await supabase.from('member').select().eq(
+          'uid',
+          getMyUid(),
+        );
+
+    var res = userMap
+        .map(
+          (data) => MemberModel.fromMap(data),
+        )
+        .toList()
+        .single;
+
+    return res;
+  }
+
+  /// 리얼타임 메시지 전송
+  Future<void> sendDirectMessage(
+    String message,
+    MemberModel userModel,
+    int idx,
+  ) async {
+    await supabase.from('chat_message').insert(ChatMessageModel(
+          message: message,
+          uid: userModel.uid,
+          chatRoomId: idx,
+          name: userModel.name,
+          profileUrl: userModel.profileUrl,
+        ).toMap());
+  }
 }
