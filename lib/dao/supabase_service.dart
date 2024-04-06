@@ -149,4 +149,38 @@ class SupabaseService {
           profileUrl: userModel.profileUrl,
         ).toMap());
   }
+
+  /// 생성된 대화방 입장
+  Future<ChatRoomModel> fetchCurrentChatRoom(int chatRoomId) async {
+    final chatRoomMap = await supabase.from('chat_room').select().eq(
+          'idx',
+          chatRoomId,
+        );
+
+    var res = chatRoomMap
+        .map(
+          (data) => ChatRoomModel.fromJson(data),
+        )
+        .toList()
+        .single;
+
+    return res;
+  }
+
+  /// 대화중인 유저 갱신
+  Future<MemberModel> fetchOtherUser(String otherUid) async {
+    final userMap = await supabase.from('member').select().eq(
+          'uid',
+          otherUid,
+        );
+
+    var res = userMap
+        .map(
+          (data) => MemberModel.fromMap(data),
+        )
+        .toList()
+        .single;
+
+    return res;
+  }
 }

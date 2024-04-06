@@ -6,12 +6,15 @@ import 'package:newbee_talk/common/utils/common_app_bar.dart';
 import 'package:newbee_talk/common/utils/common_text.dart';
 import 'package:newbee_talk/dao/supabase_service.dart';
 import 'package:newbee_talk/features/auth/models/chat_message.dart';
+import 'package:newbee_talk/features/main/controllers/main_controller.dart';
 
 class ChatListScreen extends StatelessWidget {
   const ChatListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final cont = MainCont.to;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CommonAppBar(
@@ -52,9 +55,12 @@ class ChatListScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 var model = snapshot.data![index];
 
-                return _buildChatRoomList(
-                  model,
-                  index,
+                return GestureDetector(
+                  onTap: () => cont.enterChatRoom(model.chatRoomId),
+                  child: _buildChatRoomList(
+                    model,
+                    index,
+                  ),
                 );
               },
             );
@@ -66,6 +72,10 @@ class ChatListScreen extends StatelessWidget {
 
   Widget _buildChatRoomList(ChatMessageModel model, int index) {
     return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: Sizes.size12,
+        horizontal: Sizes.size10,
+      ),
       decoration: ShapeDecoration(
         color: index % 2 == 0 ? const Color(0xFFEDEDED) : Colors.white,
         shape: RoundedRectangleBorder(
@@ -82,8 +92,8 @@ class ChatListScreen extends StatelessWidget {
         children: [
           /// 프로필 사진
           SizedBox(
-            height: Sizes.size64,
-            width: Sizes.size64,
+            height: Sizes.size58,
+            width: Sizes.size58,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(360),
               child: model.profileUrl == null
